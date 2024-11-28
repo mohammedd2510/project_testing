@@ -1,5 +1,10 @@
 pipeline {
-  agent all
+  agent {
+   docker {
+      image 'mosama25/dynamic_jenkins_agent:v1.0'
+      args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
+    }
+  }
     environment {
         DOCKER_FRONTEND = 'public.ecr.aws/i5a7b8h3/nti-project-frontend:${BUILD_NUMBER}'
         DOCKER_BACKEND = 'public.ecr.aws/i5a7b8h3/nti-project-backend:${BUILD_NUMBER}'
