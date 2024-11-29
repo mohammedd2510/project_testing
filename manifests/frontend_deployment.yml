@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: project-frontend
+  name: project-frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: project-frontend
+  template:
+    metadata:
+      labels:
+        app: project-frontend
+    spec:
+      containers:
+      - image: public.ecr.aws/i5a7b8h3/nti-project-frontend:v1.0
+        name: project-frontend
+        env:
+        - name: REACT_APP_API_URL
+          value: http://a2f84e8d6ad194ed7b3145d105ff9575-1373397873.us-east-1.elb.amazonaws.com/api
