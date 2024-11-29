@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/mohammedd2510/project_testing.git'
-    targetRevision: 3.29.1
+    targetRevision: main
     path : calico-chart
     helm:
       releaseName: calico
