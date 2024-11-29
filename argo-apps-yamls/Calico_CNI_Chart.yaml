@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: 'https://github.com/mohammedd2510/project_testing.git'
     targetRevision: main
-    path : calico-chart
+    path: calico-chart
     helm:
       releaseName: calico
   destination:
@@ -18,6 +18,6 @@ spec:
     automated:
       selfHeal: true
       prune: true
-      syncOptions:
+    syncOptions:
       - Replace=true  # Enables replace syncing
       - CreateNamespace=true
