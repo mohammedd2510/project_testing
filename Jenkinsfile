@@ -111,7 +111,7 @@ pipeline {
                 def jobNameDecoded = java.net.URLDecoder.decode(env.JOB_NAME, "UTF-8")
                 slackSend(
                     color: 'danger', 
-                    message: ":x*Build Failed*\nJob_Name: ${jobNameDecoded}\nBuild_Number: #${BUILD_NUMBER}\nStatus: Build Failed.\nMore info at: ${BUILD_URL}",
+                    message: ":x*Build failed*\nJob_Name: ${jobNameDecoded}\nBuild_Number: #${BUILD_NUMBER}\nStatus: Build Failed.\nMore info at: ${BUILD_URL}",
                     channel: '#nti-graduation-project'
                 )
         }
