@@ -7,7 +7,4 @@ spec:
   podSelector: {}
   policyTypes:
     - Ingress
-<<<<<<< HEAD
 
-=======
->>>>>>> refs/remotes/origin/main
