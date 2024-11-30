@@ -76,25 +76,19 @@ pipeline {
   }
  post {
         success {
-            script {        
-                def jobNameDecoded = java.net.URLDecoder.decode(env.JOB_NAME, "UTF-8")
                 slackSend(
                     color: 'good', 
-                    message: "*Build Successful*\nProject: ${jobNameDecoded}\nBuild: #${BUILD_NUMBER}\nStatus: Image is built successfully, and the pull request is made successfully\nFMore info at: ${BUILD_URL}.",
+                    message: "*Build Successful*\nProject: ${env.JOB_NAME}\nBuild: #${BUILD_NUMBER}\nStatus: Image is built successfully, and the pull request is made successfully\nFMore info at: ${BUILD_URL}.",
                     channel: '#nti-graduation-project'
                 )
-        }
         }
 
         failure {
-            script {
-                def jobNameDecoded = java.net.URLDecoder.decode(env.JOB_NAME, "UTF-8")
                 slackSend(
                     color: 'danger', 
-                    message: "*Build Failed*\nProject: ${jobNameDecoded}\nBuild: #${BUILD_NUMBER}\nStatus: Build failed.\nMore info at: ${BUILD_URL}",
+                    message: "*Build Failed*\nProject: ${env.JOB_NAME}\nBuild: #${BUILD_NUMBER}\nStatus: Build failed.\nMore info at: ${BUILD_URL}",
                     channel: '#nti-graduation-project'
                 )
-        }
         }
     }
 }
