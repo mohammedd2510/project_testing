@@ -8,8 +8,7 @@ pipeline {
     environment {
         DOCKER_FRONTEND = "public.ecr.aws/i5a7b8h3/nti-project-frontend:v${BUILD_NUMBER}.0"
         DOCKER_LOGIN_CREDS = credentials('docker_credentials')// Replace with your Jenkins credentials ID
-        GITHUB_TOKEN = credentials('github')_PSW
-        GITHUB_USERNAME = credentials('github')_USR
+        GITHUB_CREDS = credentials('github')
         GITHUB_REPO = "project_testing"
     }
 
@@ -63,10 +62,10 @@ pipeline {
         steps{
             sh '''
             curl -X POST \
-                -H "Authorization: token $GITHUB_TOKEN" \
+                -H "Authorization: token $GITHUB_CREDS_PSW" \
                 -H "Accept: application/vnd.github.v3+json" \
                 -d '{"title":"Amazing new feature","body":"Please pull this in!","head":"feature/frontend","base":"main"}' \
-                     https://api.github.com/repos/$GITHUB_USERNAME/$GITHUB_REPO/pulls
+                     https://api.github.com/repos/$GITHUB_CREDS_USR/$GITHUB_REPO/pulls
             '''
         }
     }
