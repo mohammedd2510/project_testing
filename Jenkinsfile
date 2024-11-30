@@ -19,7 +19,7 @@ pipeline {
     stage('Checkout') {
       steps {
         echo 'fetching repo'
-        git branch: '${GITHUB_BRANCH}', url: 'https://github.com/mohammedd2510/project_testing.git'
+        git branch: "${GITHUB_BRANCH}", url: 'https://github.com/mohammedd2510/project_testing.git'
       }
     }
      stage('Build Docker Images') {
