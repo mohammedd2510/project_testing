@@ -44,7 +44,7 @@ pipeline {
         }
       stage('Update Deployment File') {
          steps {
-            withCredentials([string(credentialsId: 'github')]) {
+            withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
                 sh '''
                     BUILD_NUMBER=${BUILD_NUMBER}
                     sed -i "s|\\(image: public.ecr.aws/i5a7b8h3/nti-project-frontend:\\)[^ ]*|\\1v${BUILD_NUMBER}|g" project-manifests/frontend_deployment.yml
