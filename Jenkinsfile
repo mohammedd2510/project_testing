@@ -48,9 +48,9 @@ pipeline {
                 sh '''
                     BUILD_NUMBER=${BUILD_NUMBER}
                     sed -i "s|\\(image: public.ecr.aws/i5a7b8h3/nti-project-frontend:\\)[^ ]*|\\1v${BUILD_NUMBER}|g" project-manifests/frontend_deployment.yml
-                    sh 'git add .'
-                    sh 'git commit -m "Update Frontend deployment image to version ${BUILD_NUMBER}"'
-                    sh 'git push origin feature/frontend'
+                    git add .
+                    git commit -m "Update Frontend deployment image to version ${BUILD_NUMBER}"
+                    git push origin feature/frontend
                 '''
             }
         }
