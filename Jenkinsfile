@@ -53,7 +53,7 @@ pipeline {
                 sh '''
                     BUILD_NUMBER=${BUILD_NUMBER}
                     sed -i "s|\\(image: $ECR_NAME:\\)[^ ]*|\\1v${BUILD_NUMBER}.0|g" $DEPLOYMENT_FILE
-                    git config --global --add safe.directory /var/lib/jenkins/workspace/$WORKSPACE
+                    git config --global --add safe.directory /var/lib/jenkins/workspace$WORKSPACE
                     git add ./$DEPLOYMENT_FILE
                     git commit -m "Update Frontend deployment image to version ${BUILD_NUMBER}"
                     git push origin ${GITHUB_BRANCH}
