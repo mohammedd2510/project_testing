@@ -8,8 +8,8 @@ pipeline {
     environment {
         DOCKER_FRONTEND = "public.ecr.aws/i5a7b8h3/nti-project-frontend:v${BUILD_NUMBER}.0"
         DOCKER_LOGIN_CREDS = credentials('docker_credentials')// Replace with your Jenkins credentials ID
-        GITHUB_TOKEN = credentials('github.PSW')
-        GITHUB_USERNAME = credentials('github.USR')
+        GITHUB_TOKEN = credentials('github_PSW')
+        GITHUB_USERNAME = credentials('github_USR')
         GITHUB_REPO = "project_testing"
     }
 
