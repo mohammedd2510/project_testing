@@ -73,11 +73,14 @@ pipeline {
             }
         }
     }
-    stage('Merge the Changes'){
+ stage('Make Git Pull Request'){
         steps{
             sh '''
-            git checkout main
-            git merge ${GITHUB_BRANCH}
+            curl -X POST \
+                -H "Authorization: token $GITHUB_CREDS_PSW" \
+                -H "Accept: application/vnd.github.v3+json" \
+                -d '{"title":"Frontend new feature","body":"Please pull this in!","head":"'"${GITHUB_BRANCH}"'","base":"main"}' \
+                     https://api.github.com/repos/$GITHUB_CREDS_USR/$GITHUB_REPO/pulls
             '''
         }
     }
