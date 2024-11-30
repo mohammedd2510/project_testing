@@ -16,3 +16,4 @@ spec:
     automated:
       selfHeal: true
       prune: true
+  timeout: 60  # Timeout in seconds (1 minute)    
