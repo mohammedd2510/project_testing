@@ -13,9 +13,21 @@ pipeline {
         GITHUB_REPO = "project_testing"
         GITHUB_BRANCH = "feature/frontend"
         DEPLOYMENT_FILE = "project-manifests/frontend_deployment.yml"
+        WEBHOOK_ID = "516151182"
     }
 
   stages {
+    stage('Disable Webhook') {
+    steps {
+        script {
+            sh '''
+            curl -X PATCH -H "Authorization: token $GITHUB_CREDS_PSW" \
+            https://api.github.com/repos/$GITHUB_CREDS_USR/$GITHUB_REPO/hooks/$WEBHOOK_ID \
+            -d '{"active": false}'
+            '''
+        }
+    }
+}
     stage('Checkout') {
       steps {
         echo 'fetching repo'
@@ -61,17 +73,25 @@ pipeline {
             }
         }
     }
-    stage('Make Git Pull Request'){
+    stage('Merge the Changes'){
         steps{
             sh '''
-            curl -X POST \
-                -H "Authorization: token $GITHUB_CREDS_PSW" \
-                -H "Accept: application/vnd.github.v3+json" \
-                -d '{"title":"Frontend new feature","body":"Please pull this in!","head":"'"${GITHUB_BRANCH}"'","base":"main"}' \
-                     https://api.github.com/repos/$GITHUB_CREDS_USR/$GITHUB_REPO/pulls
+            git checkout main
+            git merge ${GITHUB_BRANCH}
             '''
         }
     }
+    stage('Enable Webhook') {
+    steps {
+        script {
+            sh '''
+            curl -X PATCH -H "Authorization: token $GITHUB_CREDS_PSW" \
+            https://api.github.com/repos/$GITHUB_CREDS_USR/$GITHUB_REPO/hooks/$WEBHOOK_ID \
+            -d '{"active": true}'
+            '''
+        }
+    }
+}
    
   }
  post {
@@ -80,7 +100,7 @@ pipeline {
                 def jobNameDecoded = java.net.URLDecoder.decode(env.JOB_NAME, "UTF-8")
                 slackSend(
                     color: 'good', 
-                    message: ":white_check_mark:*Build Successful*\nJob_Name: ${jobNameDecoded}\nBuild_Number: #${BUILD_NUMBER}\nStatus: Image is built successfully, and the pull request is made successfully\nMore info at: ${BUILD_URL}.",
+                    message: ":white_check_mark:*Build Successful*\nJob_Name: ${jobNameDecoded}\nBuild_Number: #${BUILD_NUMBER}\nStatus: Image is built successfully\nMore info at: ${BUILD_URL}.",
                     channel: '#nti-graduation-project'
                 )
         }
