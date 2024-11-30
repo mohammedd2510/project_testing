@@ -78,7 +78,7 @@ pipeline {
         success {
                 slackSend(
                     color: 'good', 
-                    message: "✅ *Build Successful*\\nProject: ${JOB_NAME}\\nBuild: #${BUILD_NUMBER}\\nStatus: Image is built successfully, and the pull request is made successfully.",
+                    message: "*Build Successful*\nProject: ${JOB_NAME}\nBuild: #${BUILD_NUMBER}\nStatus: Image is built successfully, and the pull request is made successfully.",
                     channel: '#nti-graduation-project'
                 )
         }
@@ -86,7 +86,7 @@ pipeline {
         failure {
                 slackSend(
                     color: 'danger', 
-                    message: "❌ *Build Failed*\\nProject: ${JOB_NAME}\\nBuild: #${BUILD_NUMBER}\\nStatus: Build failed.\\nFor logs, see: ${BUILD_URL}",
+                    message: "*Build Failed*\nProject: ${JOB_NAME}\nBuild: #${BUILD_NUMBER}\nStatus: Build failed.\nFor logs, see: ${BUILD_URL}",
                     channel: '#nti-graduation-project'
                 )
         }
