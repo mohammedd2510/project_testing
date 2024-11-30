@@ -4,9 +4,11 @@ metadata:
   name: deny-all
   namespace: default
 spec:
-  podSelector: {}
+  podSelector: {}  # Selects all pods in the namespace
+  ingress:
+  - {}  # Allows all ingress traffic
+  egress:
+  - {}  # Allows all egress traffic
   policyTypes:
-    Ingress:
-    - {}
-    Egress:
-    - {}
+  - Ingress
+  - Egress
