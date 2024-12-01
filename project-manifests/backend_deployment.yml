@@ -15,5 +15,5 @@ spec:
         app: project-backend
     spec:
       containers:
-      - image: public.ecr.aws/i5a7b8h3/nti-project-backend:v4.0
+      - image: public.ecr.aws/i5a7b8h3/nti-project-backend:v5.0
         name: project-backend
